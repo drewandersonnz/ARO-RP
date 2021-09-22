@@ -33,19 +33,6 @@ import (
 )
 
 func rp(ctx context.Context, log, audit *logrus.Entry) error {
-
-	// TODO: This is currently a proxy in ensurearotag.go,
-	/*
-		TODO: when release-4.9-azure tag is available change to use:
-		import (
-			azuretypes "github.com/openshift/installer/pkg/types/azure"
-		)
-		See more details in ensurearotag.go
-	*/
-	if !azuretypes.Platform.IsARO() {
-		return fmt.Errorf("ARO-RP must be built, run, and tested with '-tags aro' to support github.com/openshift/installer, see https://github.com/openshift/installer/pull/4843/files")
-	}
-
 	stop := make(chan struct{})
 
 	_env, err := env.NewEnv(ctx, log)

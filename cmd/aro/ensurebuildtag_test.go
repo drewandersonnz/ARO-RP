@@ -14,7 +14,8 @@ func TestEnsureAroTag(t *testing.T) {
 		functionality which are valid for OpenShift on Azure, but not valid for ARO deployments.
 		Related: https://github.com/openshift/installer/pull/4843
 	*/
-	if !azuretypes.Platform.IsARO() {
+	// TODO: Use `azuretypes.Platform.IsARO()` from github.com/openshift/installer/pkg/types/azure
+	if !platformIsAro {
 		t.Fatalf("ARO-RP must be built, run, and tested with '-tags aro' to support github.com/openshift/installer, see https://github.com/openshift/installer/pull/4843/files")
 	}
 }
