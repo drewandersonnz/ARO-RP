@@ -30,7 +30,13 @@ func (mon *Monitor) emitJobConditions(ctx context.Context) error {
 		count += int64(len(jobs.Items))
 
 		for _, job := range jobs.Items {
+			// Only monitor namespaces which are considered required for cluster operation
 			if !namespace.IsOpenShift(job.Namespace) {
+				continue
+			}
+
+			// Some namespaces are known Customer namespaces, these are not considered part of our monitoring as they do not affect the cluster SLA
+			if namespace.IsKnownCustomerNamespace(job.Namespace) {
 				continue
 			}
 
